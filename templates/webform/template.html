@@ -1,0 +1,1091 @@
+<div fxFill fxLayout="column">
+    <!-- Header & Toolbar -->
+    <youpez-header>
+        <youpez-header-title>
+            Business Units
+        </youpez-header-title>
+        <youpez-header-tools>
+            <button ibmButton="secondary" size="sm" (click)="openColumnModal()" class="mr-2 columns-btn">
+                <svg ibmIconSettings size="16" class="columns-icon"></svg>
+                Columns
+            </button>
+            <button ibmButton="primary" size="sm" (click)="addBusinessUnit()">
+                Add New Business Unit
+                <svg class="bx--btn__icon" ibmIconAdd size="20"></svg>
+            </button>
+        </youpez-header-tools>
+    </youpez-header>
+
+    <div fxFlex class="app-content app-content--default business-units-container">
+        <div class="app-a-box business-units-content">
+            <div class="app-content__inner p-4">
+
+                <!-- Loading skeleton state -->
+                <div *ngIf="isLoading" class="skeleton-container">
+                    <!-- Summary cards skeleton -->
+                    <div fxLayout="row" fxLayoutGap="0.75rem" class="mb-8">
+                        <div fxFlex="20">
+                            <div class="skeleton-card">
+                                <ibm-skeleton-text [lines]="1" class="skeleton-title"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-value"></ibm-skeleton-text>
+                            </div>
+                        </div>
+                        <div fxFlex="20">
+                            <div class="skeleton-card">
+                                <ibm-skeleton-text [lines]="1" class="skeleton-title"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-value"></ibm-skeleton-text>
+                            </div>
+                        </div>
+                        <div fxFlex="20">
+                            <div class="skeleton-card">
+                                <ibm-skeleton-text [lines]="1" class="skeleton-title"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-value"></ibm-skeleton-text>
+                            </div>
+                        </div>
+                        <div fxFlex="20">
+                            <div class="skeleton-card">
+                                <ibm-skeleton-text [lines]="1" class="skeleton-title"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-value"></ibm-skeleton-text>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table skeleton -->
+                    <div class="skeleton-table">
+                        <!-- Table header -->
+                        <div class="skeleton-table-header">
+                            <div class="skeleton-table-row">
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                            </div>
+                        </div>
+                        <!-- Table body -->
+                        <div class="skeleton-table-body">
+                            <div class="skeleton-table-row" *ngFor="let row of [1,2,3,4,5,6,7,8]">
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                                <ibm-skeleton-text [lines]="1" class="skeleton-table-cell"></ibm-skeleton-text>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div fxLayout="row" fxLayoutGap="0.75rem" class="mb-8" *ngIf="!isLoading">
+                    <div fxFlex="20">
+                        <div class="app-widget-card">
+                            <div class="app-widget-card__header">
+                                <div class="app-widget-card__title">Total Business Units</div>
+                            </div>
+                            <div class="app-widget-card__content">
+                                <div class="app-widget-card__value text-blue-600">{{ summaryData.total }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxFlex="20">
+                        <div class="app-widget-card">
+                            <div class="app-widget-card__header">
+                                <div class="app-widget-card__title">Active</div>
+                            </div>
+                            <div class="app-widget-card__content">
+                                <div class="app-widget-card__value text-green-600">{{ summaryData.active }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxFlex="20">
+                        <div class="app-widget-card">
+                            <div class="app-widget-card__header">
+                                <div class="app-widget-card__title">Inactive</div>
+                            </div>
+                            <div class="app-widget-card__content">
+                                <div class="app-widget-card__value text-red-600">{{ summaryData.inactive }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxFlex="20">
+                        <div class="app-widget-card">
+                            <div class="app-widget-card__header">
+                                <div class="app-widget-card__title">Recently Added</div>
+                            </div>
+                            <div class="app-widget-card__content">
+                                <div class="app-widget-card__value text-purple-600">{{ summaryData.recentlyAdded }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search and Filters -->
+                <div class=" app-form" *ngIf="!isLoading">
+                    <div fxLayout="row wrap" fxLayoutAlign="start end" class="app-form__row">
+                        <!-- Search Input -->
+                        <div fxFlex="100%" fxFlex.gt-md="40" fxFlex.gt-sm="60" class="app-form__item">
+                            <ibm-search size="md" theme="light"
+                                placeholder="Search by name, code, head, or description..." [value]="searchTerm"
+                                (valueChange)="onSearchTermChange($event)">
+                            </ibm-search>
+                        </div>
+
+                        <!-- Status Filter -->
+                        <div fxFlex="100%" fxFlex.gt-md="22" fxFlex.gt-sm="35" class="app-form__item">
+                            <ibm-dropdown [label]="'Status'" size="md" theme="light" placeholder="All Status"
+                                [value]="statusFilter" (selected)="onStatusFilterChange($event)">
+                                <ibm-dropdown-list [items]="statusOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+
+                        <!-- Type Filter -->
+                        <div fxFlex="100%" fxFlex.gt-md="22" fxFlex.gt-sm="35" class="app-form__item">
+                            <ibm-dropdown [label]="'Type'" size="md" theme="light" placeholder="All Types"
+                                [value]="typeFilter" (selected)="onTypeFilterChange($event)">
+                                <ibm-dropdown-list [items]="typeOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+
+                        <!-- Clear Filters Button -->
+                        <div fxFlex="100%" fxFlex.gt-md="16" fxFlex.gt-sm="30" class="app-form__item"
+                            fxLayoutAlign="center end" *ngIf="hasActiveFilters()">
+                            <button ibmButton="secondary" size="sm" (click)="clearFilters()">
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Units Table and Pagination Wrapper -->
+                <div class="business-units-table-wrapper" *ngIf="!isLoading">
+
+                    <!-- No Data State -->
+                    <div *ngIf="!isLoading && filteredBusinessUnits.length === 0" class="no-data-container">
+                        <div class="no-data-content">
+                            <svg ibmIconFolderOpen size="48" class="no-data-icon"></svg>
+                            <h3 class="no-data-title">No Business Units Found</h3>
+                            <p class="no-data-text">
+                                {{ searchTerm || statusFilter || typeFilter || organizationFilter ?
+                                'No business units match your current filters. Try adjusting your search criteria.' :
+                                'No business units have been added yet. Click "Add New Business Unit" to get started.'
+                                }}
+                            </p>
+                            <button *ngIf="!searchTerm && !statusFilter && !typeFilter && !organizationFilter"
+                                ibmButton="primary" size="sm" (click)="addBusinessUnit()" class="mt-3">
+                                Add New Business Unit
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Business Units Table -->
+                    <div *ngIf="filteredBusinessUnits.length > 0" class="app-table-container">
+                        <div class="table-scroll-container">
+                            <table ibmTable [sortable]="true">
+                                <thead>
+                                    <tr>
+                                        <th ibmTableHeaderCell>
+                                            <input type="checkbox"
+                                                (change)="$event.target.checked ? selectAll() : clearSelection()">
+                                        </th>
+                                        <th ibmTableHeaderCell *ngFor="let column of getVisibleColumns()">
+                                            {{ column.uiElementLabel }}
+                                        </th>
+                                        <th ibmTableHeaderCell>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ibmTableRow *ngFor="let businessUnit of paginatedBusinessUnits; let i = index"
+                                        class="table-row">
+                                        <td ibmTableCell>
+                                            <input type="checkbox" [value]="businessUnit.bus_unit_id"
+                                                (change)="onSelectionChange($event, businessUnit)">
+                                        </td>
+
+                                        <!-- Dynamic Columns -->
+                                        <td ibmTableCell *ngFor="let column of getVisibleColumns()">
+                                            <span [ngSwitch]="column.uiElementId">
+                                                <!-- Organization ID -->
+                                                <span *ngSwitchCase="'org_id'" class="table-cell-content">
+                                                    {{ businessUnit.org_id || '-' }}
+                                                </span>
+
+                                                <!-- Business Unit Code -->
+                                                <span *ngSwitchCase="'bus_unit_code'"
+                                                    class="table-cell-content font-semibold">
+                                                    {{ businessUnit.bus_unit_code }}
+                                                </span>
+
+                                                <!-- Business Unit Name -->
+                                                <span *ngSwitchCase="'bus_unit_name'" class="table-cell-content">
+                                                    <div class="cell-primary">{{ businessUnit.bus_unit_name }}</div>
+                                                </span>
+
+                                                <!-- Business Unit Description -->
+                                                <span *ngSwitchCase="'bus_unit_desc'" class="table-cell-content">
+                                                    <div class="cell-truncated" [title]="businessUnit.bus_unit_desc">
+                                                        {{ businessUnit.bus_unit_desc || '-' }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Status -->
+                                                <span *ngSwitchCase="'act_status'" class="table-cell-content">
+                                                    <div class="status-badge" [ngClass]="{
+                            'status-active': businessUnit.act_status === 'Active',
+                            'status-inactive': businessUnit.act_status === 'Inactive',
+                            'status-pending': businessUnit.act_status === 'Pending',
+                            'status-suspended': businessUnit.act_status === 'Suspended'
+                          }">
+                                                        {{ businessUnit.act_status }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Parent Business Unit -->
+                                                <span *ngSwitchCase="'parent_bus_unit_id'" class="table-cell-content">
+                                                    {{ businessUnit.parent_bus_unit_id || '-' }}
+                                                </span>
+
+                                                <!-- Business Unit Type -->
+                                                <span *ngSwitchCase="'bus_unit_type_name'" class="table-cell-content">
+                                                    {{ businessUnit.bus_unit_type_name || '-' }}
+                                                </span>
+
+                                                <!-- Functional Area -->
+                                                <span *ngSwitchCase="'func_area'" class="table-cell-content">
+                                                    {{ businessUnit.func_area || '-' }}
+                                                </span>
+
+                                                <!-- Cost Center Code -->
+                                                <span *ngSwitchCase="'cost_ctr_cd'" class="table-cell-content">
+                                                    {{ businessUnit.cost_ctr_cd || '-' }}
+                                                </span>
+
+                                                <!-- Profit Center Code -->
+                                                <span *ngSwitchCase="'profit_ctr_cd'" class="table-cell-content">
+                                                    {{ businessUnit.profit_ctr_cd || '-' }}
+                                                </span>
+
+                                                <!-- Budget Code -->
+                                                <span *ngSwitchCase="'bud_cd'" class="table-cell-content">
+                                                    {{ businessUnit.bud_cd || '-' }}
+                                                </span>
+
+                                                <!-- Business Unit Head Name -->
+                                                <span *ngSwitchCase="'bus_unit_head_name'" class="table-cell-content">
+                                                    {{ businessUnit.bus_unit_head_name || '-' }}
+                                                </span>
+
+                                                <!-- Business Unit Head Email -->
+                                                <span *ngSwitchCase="'bus_unit_head_email'" class="table-cell-content">
+                                                    {{ businessUnit.bus_unit_head_email || '-' }}
+                                                </span>
+
+                                                <!-- Business Unit Head Phone -->
+                                                <span *ngSwitchCase="'bus_unit_head_phone_num'"
+                                                    class="table-cell-content">
+                                                    {{ businessUnit.bus_unit_head_phone_num || '-' }}
+                                                </span>
+
+                                                <!-- Reporting Manager ID -->
+                                                <span *ngSwitchCase="'rpt_mgr_id'" class="table-cell-content">
+                                                    {{ businessUnit.rpt_mgr_id || '-' }}
+                                                </span>
+
+                                                <!-- Establishment Date -->
+                                                <span *ngSwitchCase="'est_dt'" class="table-cell-content">
+                                                    {{ businessUnit.est_dt ? (businessUnit.est_dt | date:'shortDate') :
+                                                    '-' }}
+                                                </span>
+
+                                                <!-- Core Functions -->
+                                                <span *ngSwitchCase="'core_funcs'" class="table-cell-content">
+                                                    <div class="cell-truncated" [title]="businessUnit.core_funcs">
+                                                        {{ businessUnit.core_funcs || '-' }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Key Responsibilities -->
+                                                <span *ngSwitchCase="'key_resp'" class="table-cell-content">
+                                                    <div class="cell-truncated" [title]="businessUnit.key_resp">
+                                                        {{ businessUnit.key_resp || '-' }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Primary Location Country -->
+                                                <span *ngSwitchCase="'prim_loc_country'" class="table-cell-content">
+                                                    {{ businessUnit.prim_loc_country || '-' }}
+                                                </span>
+
+                                                <!-- Primary Location City -->
+                                                <span *ngSwitchCase="'prim_loc_city'" class="table-cell-content">
+                                                    {{ businessUnit.prim_loc_city || '-' }}
+                                                </span>
+
+                                                <!-- Contact Email -->
+                                                <span *ngSwitchCase="'contact_email_id'" class="table-cell-content">
+                                                    {{ businessUnit.contact_email_id || '-' }}
+                                                </span>
+
+                                                <!-- Contact Phone -->
+                                                <span *ngSwitchCase="'contact_phone_num'" class="table-cell-content">
+                                                    {{ businessUnit.contact_phone_num || '-' }}
+                                                </span>
+
+                                                <!-- Compliance Certifications -->
+                                                <span *ngSwitchCase="'compl_cert'" class="table-cell-content">
+                                                    <span
+                                                        *ngIf="businessUnit.compl_cert && businessUnit.compl_cert.length > 0">
+                                                        {{ businessUnit.compl_cert.length }} cert(s)
+                                                    </span>
+                                                    <span
+                                                        *ngIf="!businessUnit.compl_cert || businessUnit.compl_cert.length === 0">-</span>
+                                                </span>
+
+                                                <!-- Risk Assessment Level -->
+                                                <span *ngSwitchCase="'risk_assess_lvl'" class="table-cell-content">
+                                                    <div class="risk-badge" [ngClass]="{
+                            'risk-low': businessUnit.risk_assess_lvl === 'Low',
+                            'risk-medium': businessUnit.risk_assess_lvl === 'Medium',
+                            'risk-high': businessUnit.risk_assess_lvl === 'High',
+                            'risk-critical': businessUnit.risk_assess_lvl === 'Critical'
+                          }">
+                                                        {{ businessUnit.risk_assess_lvl || '-' }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Audit Frequency -->
+                                                <span *ngSwitchCase="'audit_freq'" class="table-cell-content">
+                                                    {{ businessUnit.audit_freq || '-' }}
+                                                </span>
+
+                                                <!-- Last Audit Date -->
+                                                <span *ngSwitchCase="'last_audit_dt'" class="table-cell-content">
+                                                    {{ businessUnit.last_audit_dt ? (businessUnit.last_audit_dt |
+                                                    date:'shortDate') : '-' }}
+                                                </span>
+
+                                                <!-- Next Audit Date -->
+                                                <span *ngSwitchCase="'next_audit_dt'" class="table-cell-content">
+                                                    {{ businessUnit.next_audit_dt ? (businessUnit.next_audit_dt |
+                                                    date:'shortDate') : '-' }}
+                                                </span>
+
+                                                <!-- Strategic Objectives -->
+                                                <span *ngSwitchCase="'strat_obj'" class="table-cell-content">
+                                                    <div class="cell-truncated" [title]="businessUnit.strat_obj">
+                                                        {{ businessUnit.strat_obj || '-' }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Key Initiatives -->
+                                                <span *ngSwitchCase="'key_init'" class="table-cell-content">
+                                                    <div class="cell-truncated" [title]="businessUnit.key_init">
+                                                        {{ businessUnit.key_init || '-' }}
+                                                    </div>
+                                                </span>
+
+                                                <!-- Default case for other fields -->
+                                                <span *ngSwitchDefault class="table-cell-content">
+                                                    {{ businessUnit[column.uiElementId] || '-' }}
+                                                </span>
+                                            </span>
+                                        </td>
+
+                                        <!-- Actions Column -->
+                                        <td ibmTableDataCell>
+                                            <div class="flex space-x-2" (click)="$event.stopPropagation()">
+                                                <button ibmButton="ghost" size="sm" class="table-action-btn"
+                                                    (click)="viewBusinessUnit(businessUnit)" title="View Details">
+                                                    <svg ibmIconView size="16"></svg>
+                                                </button>
+                                                <button ibmButton="ghost" size="sm" class="table-action-btn"
+                                                    (click)="editBusinessUnit(businessUnit)" title="Edit">
+                                                    <svg ibmIconEdit size="16"></svg>
+                                                </button>
+                                                <button ibmButton="ghost" size="sm" class="table-action-btn"
+                                                    (click)="deleteBusinessUnit(businessUnit)" title="Delete">
+                                                    <svg ibmIconTrashCan size="16"></svg>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div *ngIf="!isLoading && filteredBusinessUnits.length > 0" class="pagination-section"
+                        fxLayout="row" fxLayoutAlign="space-between center">
+                        <!-- Left: Page size selector -->
+                        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1rem">
+                            <span class="text-sm">Show</span>
+                            <ibm-dropdown placeholder="Select page size" size="sm" [(ngModel)]="pageSize"
+                                itemValueKey="value" (selected)="changePageSize($event.item.value)">
+                                <ibm-dropdown-list [items]="pageSizeOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                            <span class="text-sm">per page</span>
+                        </div>
+
+                        <!-- Center: Current page info -->
+                        <div class="pagination-info">
+                            <span class="text-sm">
+                                {{ getCurrentPageRange() }}
+                            </span>
+                        </div>
+
+                        <!-- Right: Navigation controls -->
+                        <div class="pagination-controls" fxLayout="row" fxLayoutGap="0.5rem">
+                            <button ibmButton="secondary" size="sm" [disabled]="currentPage === 1"
+                                (click)="changePage(currentPage - 1)">
+                                Previous
+                            </button>
+
+                            <button ibmButton="secondary" size="sm" [disabled]="currentPage >= getTotalPages()"
+                                (click)="changePage(currentPage + 1)">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Business Unit Modal -->
+<div class="modal-overlay" *ngIf="isAddEditModalOpen" (click)="closeAddEditModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3 class="modal-title">
+                {{ isViewMode ? 'View Business Unit' : (isEditMode ? 'Edit Business Unit' : 'Add New Business Unit') }}
+            </h3>
+            <button class="modal-close-btn" (click)="closeAddEditModal()">
+                <svg ibmIconClose size="16"></svg>
+            </button>
+        </div>
+
+        <div class="modal-body modal-body-form">
+            <form class="business-unit-form">
+
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Basic Information</h4>
+
+                    <div class="form-row">
+                        <div class="form-group required">
+                            <ibm-label>
+                                Business Unit Code *
+                                <input ibmText size="md" theme="light" placeholder="Enter business unit code"
+                                    [(ngModel)]="currentBusinessUnit.bus_unit_code" name="bus_unit_code"
+                                    [readonly]="isViewMode" required>
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group required">
+                            <ibm-label>
+                                Business Unit Name *
+                                <input ibmText size="md" theme="light" placeholder="Enter business unit name"
+                                    [(ngModel)]="currentBusinessUnit.bus_unit_name" name="bus_unit_name"
+                                    [readonly]="isViewMode" required>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group required">
+                            <ibm-dropdown label="Organization ID *" size="md" theme="light"
+                                placeholder="Select parent organization ID" [(ngModel)]="currentBusinessUnit.org_id"
+                                itemValueKey="value" [disabled]="isViewMode" name="org_id">
+                                <ibm-dropdown-list [items]="organizationOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-dropdown label="Parent Business Unit" size="md" theme="light"
+                                placeholder="Select parent business unit"
+                                [(ngModel)]="currentBusinessUnit.parent_bus_unit_id" itemValueKey="value"
+                                [disabled]="isViewMode" name="parent_bus_unit_id">
+                                <ibm-dropdown-list [items]="parentBusinessUnitOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-dropdown label="Business Unit Type" size="md" theme="light"
+                                placeholder="Select business unit type"
+                                [(ngModel)]="currentBusinessUnit.bus_unit_type_name" itemValueKey="value"
+                                [disabled]="isViewMode" name="bus_unit_type_name">
+                                <ibm-dropdown-list [items]="businessUnitTypeOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-dropdown label="Functional Area" size="md" theme="light"
+                                placeholder="Select functional area" [(ngModel)]="currentBusinessUnit.func_area"
+                                itemValueKey="value" [disabled]="isViewMode" name="func_area">
+                                <ibm-dropdown-list [items]="functionalAreaOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-date-picker label="Establishment Date" placeholder="mm/dd/yyyy" size="md" theme="light"
+                                [(ngModel)]="currentBusinessUnit.est_dt" [disabled]="isViewMode" name="est_dt">
+                            </ibm-date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-date-picker label="Effective Start Date" placeholder="mm/dd/yyyy" size="md"
+                                theme="light" [(ngModel)]="currentBusinessUnit.eff_start_dt" [disabled]="isViewMode"
+                                name="est_dt">
+                            </ibm-date-picker>
+                        </div>
+
+                        <div class="form-group required">
+                            <ibm-dropdown label="Activity Status" size="md" theme="light"
+                                placeholder="Select activity status" [(ngModel)]="currentBusinessUnit.act_status"
+                                itemValueKey="value" [disabled]="isViewMode" name="act_status">
+                                <ibm-dropdown-list [items]="activityStatusOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Business Unit Description
+                                <textarea ibmTextArea rows="3" placeholder="Enter business unit description"
+                                    [(ngModel)]="currentBusinessUnit.bus_unit_desc" [readonly]="isViewMode"
+                                    name="bus_unit_desc">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Financial Information</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Cost Center Code
+                                <input ibmText size="md" theme="light" placeholder="Enter cost center code"
+                                    [(ngModel)]="currentBusinessUnit.cost_ctr_cd" [readonly]="isViewMode"
+                                    name="cost_ctr_cd">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Profit Center Code
+                                <input ibmText size="md" theme="light" placeholder="Enter profit center code"
+                                    [(ngModel)]="currentBusinessUnit.profit_ctr_cd" [readonly]="isViewMode"
+                                    name="profit_ctr_cd">
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Budget Code
+                                <input ibmText size="md" theme="light" placeholder="Enter budget code"
+                                    [(ngModel)]="currentBusinessUnit.bud_cd" [readonly]="isViewMode" name="bud_cd">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Employee Count
+                                <input ibmText size="md" theme="light" type="number"
+                                    placeholder="Enter number of employees"
+                                    [(ngModel)]="currentBusinessUnit.total_emp_num" [readonly]="isViewMode"
+                                    name="total_emp_num">
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Annual Revenue
+                                <input ibmText size="md" theme="light" type="number" placeholder="Enter annual revenue"
+                                    [(ngModel)]="currentBusinessUnit.annual_rev_num" [readonly]="isViewMode"
+                                    name="annual_rev_num">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-dropdown label="Geographic Footprint" size="md" theme="light"
+                                placeholder="Select geographic location" [(ngModel)]="currentBusinessUnit.geo_footprint"
+                                itemValueKey="value" [disabled]="isViewMode" name="geo_footprint">
+                                <ibm-dropdown-list [items]="geographicFootprintOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Management Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Management Information</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Business Unit Head Name
+                                <input ibmText size="md" theme="light" placeholder="Enter business unit head name"
+                                    [(ngModel)]="currentBusinessUnit.bus_unit_head_name" [readonly]="isViewMode"
+                                    name="bus_unit_head_name">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Business Unit Head Email
+                                <input ibmText size="md" theme="light" placeholder="head@example.com"
+                                    [(ngModel)]="currentBusinessUnit.bus_unit_head_email" [readonly]="isViewMode"
+                                    name="bus_unit_head_email">
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Business Unit Head Phone
+                                <input ibmText size="md" theme="light" placeholder="+1-555-0100"
+                                    [(ngModel)]="currentBusinessUnit.bus_unit_head_phone_num" [readonly]="isViewMode"
+                                    name="bus_unit_head_phone_num">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Reporting Manager ID
+                                <input ibmText size="md" theme="light" placeholder="Enter reporting manager ID"
+                                    [(ngModel)]="currentBusinessUnit.rpt_mgr_id" [readonly]="isViewMode"
+                                    name="rpt_mgr_id">
+                            </ibm-label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operational Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Operational Information</h4>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Core Functions
+                                <textarea ibmTextArea rows="3" placeholder="Enter core functions"
+                                    [(ngModel)]="currentBusinessUnit.core_funcs" [readonly]="isViewMode"
+                                    name="core_funcs">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Key Responsibilities
+                                <textarea ibmTextArea rows="3" placeholder="Enter key responsibilities"
+                                    [(ngModel)]="currentBusinessUnit.key_resp" [readonly]="isViewMode" name="key_resp">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Strategic Objectives
+                                <textarea ibmTextArea rows="3" placeholder="Enter strategic objectives"
+                                    [(ngModel)]="currentBusinessUnit.strat_obj" [readonly]="isViewMode"
+                                    name="strat_obj">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Key Initiatives
+                                <textarea ibmTextArea rows="3" placeholder="Enter key initiatives"
+                                    [(ngModel)]="currentBusinessUnit.key_init" [readonly]="isViewMode" name="key_init">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Strategic Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Strategic Information</h4>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Mission Statement
+                                <textarea ibmTextArea rows="3" placeholder="Enter business unit mission statement"
+                                    [(ngModel)]="currentBusinessUnit.mission_stmt" [readonly]="isViewMode"
+                                    name="mission_stmt">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Vision Statement
+                                <textarea ibmTextArea rows="3" placeholder="Enter business unit vision statement"
+                                    [(ngModel)]="currentBusinessUnit.vision_stmt" [readonly]="isViewMode"
+                                    name="vision_stmt">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Business Objectives
+                                <textarea ibmTextArea rows="3" placeholder="Enter business unit objectives"
+                                    [(ngModel)]="currentBusinessUnit.business_obj" [readonly]="isViewMode"
+                                    name="business_obj">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <ibm-label>
+                                Business Goals
+                                <textarea ibmTextArea rows="3" placeholder="Enter business unit goals"
+                                    [(ngModel)]="currentBusinessUnit.business_goals" [readonly]="isViewMode"
+                                    name="business_goals">
+                </textarea>
+                            </ibm-label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Location Information</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Primary Location Country
+                                <input ibmText size="md" theme="light" placeholder="Enter country"
+                                    [(ngModel)]="currentBusinessUnit.prim_loc_country" [readonly]="isViewMode"
+                                    name="prim_loc_country">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Primary Location City
+                                <input ibmText size="md" theme="light" placeholder="Enter city"
+                                    [(ngModel)]="currentBusinessUnit.prim_loc_city" [readonly]="isViewMode"
+                                    name="prim_loc_city">
+                            </ibm-label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Contact Information</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Contact Email
+                                <input ibmText size="md" theme="light" placeholder="contact@example.com"
+                                    [(ngModel)]="currentBusinessUnit.contact_email_id" [readonly]="isViewMode"
+                                    name="contact_email_id">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Contact Phone
+                                <input ibmText size="md" theme="light" placeholder="+1-555-0100"
+                                    [(ngModel)]="currentBusinessUnit.contact_phone_num" [readonly]="isViewMode"
+                                    name="contact_phone_num">
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Website URL
+                                <input ibmText size="md" theme="light" placeholder="https://businessunit.example.com"
+                                    [(ngModel)]="currentBusinessUnit.website_url" [readonly]="isViewMode"
+                                    name="website_url">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Social Media Links
+                                <input ibmText size="md" theme="light" placeholder="Social media profiles"
+                                    [(ngModel)]="currentBusinessUnit.social_med_links" [readonly]="isViewMode"
+                                    name="social_med_links">
+                            </ibm-label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance & Audit Section -->
+                <div class="form-section">
+                    <h4 class="section-title">Compliance & Audit Information</h4>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-dropdown label="Risk Assessment Level" size="md" theme="light"
+                                placeholder="Select risk level" [(ngModel)]="currentBusinessUnit.risk_assess_lvl"
+                                itemValueKey="value" [disabled]="isViewMode" name="risk_assess_lvl">
+                                <ibm-dropdown-list [items]="riskAssessmentOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-dropdown label="Audit Frequency" size="md" theme="light"
+                                placeholder="Select audit frequency" [(ngModel)]="currentBusinessUnit.audit_freq"
+                                itemValueKey="value" [disabled]="isViewMode" name="audit_freq">
+                                <ibm-dropdown-list [items]="auditFrequencyOptions"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-label>
+                                Regulatory Body
+                                <input ibmText size="md" theme="light" placeholder="Enter regulatory body name"
+                                    [(ngModel)]="currentBusinessUnit.regulatory_body_name" [readonly]="isViewMode"
+                                    name="regulatory_body_name">
+                            </ibm-label>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-label>
+                                Audit Firm
+                                <input ibmText size="md" theme="light" placeholder="Enter audit firm name"
+                                    [(ngModel)]="currentBusinessUnit.audit_firm" [readonly]="isViewMode"
+                                    name="audit_firm">
+                            </ibm-label>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <ibm-date-picker label="Last Audit Date" placeholder="mm/dd/yyyy" size="md" theme="light"
+                                [(ngModel)]="currentBusinessUnit.last_audit_dt" [disabled]="isViewMode"
+                                name="last_audit_dt">
+                            </ibm-date-picker>
+                        </div>
+
+                        <div class="form-group">
+                            <ibm-date-picker label="Next Audit Date" placeholder="mm/dd/yyyy" size="md" theme="light"
+                                [(ngModel)]="currentBusinessUnit.next_audit_dt" [disabled]="isViewMode"
+                                name="next_audit_dt">
+                            </ibm-date-picker>
+                        </div>
+                    </div>
+
+                    <div class="form-row full-width">
+                        <div class="form-group">
+                            <div class="cert-section">
+                                <div class="cert-header">
+                                    <label class="cert-label">Compliance Certifications</label>
+                                    <button type="button" ibmButton="secondary" size="sm" (click)="addCertification()"
+                                        *ngIf="!isViewMode">
+                                        <svg ibmIconAdd size="16"></svg>
+                                        Add Certification
+                                    </button>
+                                </div>
+
+                                <div class="cert-list"
+                                    *ngIf="currentBusinessUnit.compl_cert && currentBusinessUnit.compl_cert.length > 0">
+                                    <div class="cert-item"
+                                        *ngFor="let cert of currentBusinessUnit.compl_cert; trackBy: trackByFn">
+                                        <div class="cert-row">
+                                            <div class="cert-name">
+                                                <ibm-label>
+                                                    Certification Name
+                                                    <input ibmText size="md" theme="light"
+                                                        placeholder="Enter certification name" [(ngModel)]="cert.name"
+                                                        [readonly]="isViewMode" [name]="'cert_name_' + cert.id">
+                                                </ibm-label>
+                                            </div>
+
+                                            <div class="cert-upload">
+                                                <ibm-label>
+                                                    Upload Certificate
+                                                    <input type="file" accept=".pdf,.doc,.docx,.jpg,.png"
+                                                        (change)="onCertificationFileChange($event, cert.id)"
+                                                        [name]="'cert_file_' + cert.id" [disabled]="isViewMode"
+                                                        class="file-input">
+                                                </ibm-label>
+                                                <div class="file-info" *ngIf="cert.fileName">
+                                                    <span class="file-name">{{ cert.fileName }}</span>
+                                                    <button type="button" ibmButton="ghost" size="sm"
+                                                        (click)="downloadCertification(cert)">
+                                                        <svg ibmIconDownload size="16"></svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="cert-actions">
+                                                <button type="button" ibmButton="danger" size="sm"
+                                                    (click)="removeCertification(cert.id)" *ngIf="!isViewMode">
+                                                    <svg ibmIconTrashCan size="16"></svg>
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="cert-date" *ngIf="cert.uploadDate">
+                                            <small class="upload-date">Uploaded: {{ cert.uploadDate | date:'shortDate'
+                                                }}</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="no-certs"
+                                    *ngIf="!currentBusinessUnit.compl_cert || currentBusinessUnit.compl_cert.length === 0">
+                                    <p class="no-certs-text">No certifications added yet. Click "Add Certification" to
+                                        get started.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button ibmButton="secondary" (click)="closeAddEditModal()">
+                {{ isViewMode ? 'Close' : 'Cancel' }}
+            </button>
+            <button *ngIf="!isViewMode" ibmButton="primary" (click)="saveBusinessUnit()" type="button">
+                {{ isEditMode ? 'Update Business Unit' : 'Add Business Unit' }}
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Column Preferences Modal -->
+<div *ngIf="showColumnModal" class="modal-overlay" (click)="closeColumnModal()">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title">
+                <p class="modal-label">Table Settings</p>
+                <h3 class="modal-heading">Column Preferences</h3>
+            </div>
+            <button class="modal-close-btn" (click)="closeColumnModal()">
+                <svg ibmIconClose size="16"></svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="column-preferences-content">
+                <div class="column-section">
+                    <h5 class="section-title">Default Columns</h5>
+                    <p class="section-description">These columns are always visible and cannot be hidden</p>
+                    <div class="column-list">
+                        <div class="column-item default-column" *ngFor="let col of getDefaultColumns()">
+                            <div class="column-info">
+                                <svg ibmIconLocked size="16" class="lock-icon"></svg>
+                                <span class="column-name">{{ col.label }}</span>
+                            </div>
+                            <span class="column-status">Always Visible</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column-section">
+                    <h5 class="section-title">Optional Columns</h5>
+                    <p class="section-description">Select which columns you want to display in the table</p>
+                    <div class="column-list">
+                        <div class="column-item" *ngFor="let col of getOptionalColumns(); trackBy: trackByColumnKey">
+                            <div class="column-info">
+                                <div class="custom-checkbox" [class.checked]="!!tempVisibleColumns[col.key]"
+                                    (click)="toggleTempColumn(col.key)"
+                                    [title]="'Checked: ' + !!tempVisibleColumns[col.key]">
+                                </div>
+                                <span class="column-name" (click)="toggleTempColumn(col.key)">{{ col.label }}</span>
+                            </div>
+                            <span class="column-description">{{ col.description }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button ibmButton="secondary" (click)="resetToDefaults()">
+                Reset to Defaults
+            </button>
+            <button ibmButton="secondary" (click)="closeColumnModal()">
+                Cancel
+            </button>
+            <button ibmButton="primary" (click)="saveColumnPreferences()">
+                Save Preferences
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div *ngIf="showDeleteModal" class="modal-overlay" (click)="showDeleteModal = false">
+    <div class="modal-dialog modal-sm" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <div class="modal-title">
+                <p class="modal-label">Confirm Action</p>
+                <h3 class="modal-heading">Delete Business Unit</h3>
+            </div>
+            <button class="modal-close-btn" (click)="showDeleteModal = false">
+                <svg ibmIconClose size="16"></svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <p>Are you sure you want to delete <strong>"{{ selectedBusinessUnit.bus_unit_name }}"</strong>?</p>
+            <p class="text-sm text-gray-600 mt-2">This action cannot be undone.</p>
+        </div>
+
+        <div class="modal-footer">
+            <button ibmButton="secondary" (click)="showDeleteModal = false">
+                Cancel
+            </button>
+            <button ibmButton="danger" (click)="confirmDelete()">
+                Delete Business Unit
+            </button>
+        </div>
+    </div>
+</div>

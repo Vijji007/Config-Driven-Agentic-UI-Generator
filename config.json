@@ -1,0 +1,143 @@
+{
+  "pages": [
+    {
+      "id": "departments",
+      "type": "webform",
+      "entity": "Department",
+      "entityPlural": "Departments",
+      "entityVar": "department",
+      "entityVarPlural": "departments",
+      "componentName": "DepartmentsComponent",
+      "componentSelector": "app-departments",
+      "componentFile": "departments.component",
+      "apiEndpoint": "departmentForm",
+      "primaryKey": "dept_id",
+      "title": "Departments",
+      "addButtonText": "Add New Department",
+      "localStorageKey": "departmentsColumnPreferences",
+      "defaultColumns": [
+        { "seqNo": 1, "uiElementId": "org_id",      "uiElementLabel": "Organization ID",      "position": "default" },
+        { "seqNo": 2, "uiElementId": "dept_code",   "uiElementLabel": "Department Code",      "position": "default" },
+        { "seqNo": 3, "uiElementId": "dept_name",   "uiElementLabel": "Department Name",      "position": "default" },
+        { "seqNo": 4, "uiElementId": "dept_desc",   "uiElementLabel": "Description",          "position": "default" },
+        { "seqNo": 5, "uiElementId": "act_status",  "uiElementLabel": "Status",               "position": "default" }
+      ],
+      "dynamicColumns": [
+        { "seqNo": 6,  "uiElementId": "dept_type",       "uiElementLabel": "Department Type",      "position": "dynamic" },
+        { "seqNo": 7,  "uiElementId": "head_name",        "uiElementLabel": "Department Head",      "position": "dynamic" },
+        { "seqNo": 8,  "uiElementId": "head_email",       "uiElementLabel": "Head Email",           "position": "dynamic" },
+        { "seqNo": 9,  "uiElementId": "head_phone",       "uiElementLabel": "Head Phone",           "position": "dynamic" },
+        { "seqNo": 10, "uiElementId": "location",         "uiElementLabel": "Location",             "position": "dynamic" },
+        { "seqNo": 11, "uiElementId": "budget_code",      "uiElementLabel": "Budget Code",          "position": "dynamic" },
+        { "seqNo": 12, "uiElementId": "est_dt",           "uiElementLabel": "Established Date",     "position": "dynamic" },
+        { "seqNo": 13, "uiElementId": "contact_email",    "uiElementLabel": "Contact Email",        "position": "dynamic" },
+        { "seqNo": 14, "uiElementId": "risk_level",       "uiElementLabel": "Risk Level",           "position": "dynamic" },
+        { "seqNo": 15, "uiElementId": "audit_freq",       "uiElementLabel": "Audit Frequency",      "position": "dynamic" }
+      ],
+      "interface": {
+        "name": "Department",
+        "fields": [
+          { "name": "dept_id",      "type": "string",    "optional": true  },
+          { "name": "tenant_id",    "type": "string",    "optional": true  },
+          { "name": "org_id",       "type": "string",    "optional": false },
+          { "name": "dept_code",    "type": "string",    "optional": false },
+          { "name": "dept_name",    "type": "string",    "optional": false },
+          { "name": "dept_type",    "type": "string",    "optional": true  },
+          { "name": "dept_desc",    "type": "string",    "optional": true  },
+          { "name": "head_name",    "type": "string",    "optional": true  },
+          { "name": "head_email",   "type": "string",    "optional": true  },
+          { "name": "head_phone",   "type": "string",    "optional": true  },
+          { "name": "location",     "type": "string",    "optional": true  },
+          { "name": "budget_code",  "type": "string",    "optional": true  },
+          { "name": "est_dt",       "type": "string",    "optional": true  },
+          { "name": "contact_email","type": "string",    "optional": true  },
+          { "name": "risk_level",   "type": "string",    "optional": true  },
+          { "name": "audit_freq",   "type": "string",    "optional": true  },
+          { "name": "act_status",   "type": "string",    "optional": false },
+          { "name": "created_at",   "type": "string",    "optional": true  },
+          { "name": "updated_at",   "type": "string",    "optional": true  },
+          { "name": "created_by",   "type": "string",    "optional": true  },
+          { "name": "updated_by",   "type": "string",    "optional": true  }
+        ]
+      },
+      "formSections": [
+        {
+          "title": "Basic Information",
+          "fields": [
+            { "name": "dept_code",  "label": "Department Code",  "type": "text",     "required": true,  "placeholder": "Enter department code" },
+            { "name": "dept_name",  "label": "Department Name",  "type": "text",     "required": true,  "placeholder": "Enter department name" },
+            { "name": "org_id",     "label": "Organization ID",  "type": "dropdown", "required": true,  "placeholder": "Select organization" },
+            { "name": "dept_type",  "label": "Department Type",  "type": "dropdown", "required": false, "placeholder": "Select type" },
+            { "name": "est_dt",     "label": "Established Date", "type": "date",     "required": false, "placeholder": "mm/dd/yyyy" },
+            { "name": "act_status", "label": "Activity Status",  "type": "dropdown", "required": true,  "placeholder": "Select status" },
+            { "name": "dept_desc",  "label": "Description",      "type": "textarea", "required": false, "placeholder": "Enter department description" }
+          ]
+        },
+        {
+          "title": "Management Information",
+          "fields": [
+            { "name": "head_name",  "label": "Department Head",  "type": "text",  "required": false, "placeholder": "Enter head name" },
+            { "name": "head_email", "label": "Head Email",       "type": "text",  "required": false, "placeholder": "head@example.com" },
+            { "name": "head_phone", "label": "Head Phone",       "type": "text",  "required": false, "placeholder": "+1-555-0100" }
+          ]
+        },
+        {
+          "title": "Financial & Risk",
+          "fields": [
+            { "name": "budget_code","label": "Budget Code",      "type": "text",     "required": false, "placeholder": "Enter budget code" },
+            { "name": "risk_level", "label": "Risk Level",       "type": "dropdown", "required": false, "placeholder": "Select risk level" },
+            { "name": "audit_freq", "label": "Audit Frequency",  "type": "dropdown", "required": false, "placeholder": "Select frequency" }
+          ]
+        },
+        {
+          "title": "Contact & Location",
+          "fields": [
+            { "name": "location",      "label": "Location",       "type": "text", "required": false, "placeholder": "Enter city/office" },
+            { "name": "contact_email", "label": "Contact Email",  "type": "text", "required": false, "placeholder": "contact@example.com" }
+          ]
+        }
+      ],
+      "dropdownOptions": {
+        "deptTypeOptions": ["HR", "Finance", "IT", "Operations", "Marketing", "Legal"],
+        "activityStatusOptions": ["Active", "Inactive", "Pending", "Suspended"],
+        "riskLevelOptions": ["Low", "Medium", "High", "Critical"],
+        "auditFreqOptions": ["Quarterly", "Semi-Annual", "Annual"]
+      },
+      "sampleData": [
+        {
+          "dept_id": "DEPT001", "org_id": "ORG001",
+          "dept_code": "HR-001", "dept_name": "Human Resources",
+          "dept_type": "HR", "dept_desc": "Manages hiring and employee relations",
+          "head_name": "Alice Johnson", "head_email": "alice@company.com",
+          "head_phone": "+1-555-0101", "location": "New York",
+          "budget_code": "BUD-HR", "est_dt": "2020-01-10",
+          "contact_email": "hr@company.com", "risk_level": "Low",
+          "audit_freq": "Annual", "act_status": "Active",
+          "created_at": "2024-01-01T00:00:00Z", "updated_at": "2024-08-01T00:00:00Z"
+        },
+        {
+          "dept_id": "DEPT002", "org_id": "ORG001",
+          "dept_code": "IT-001", "dept_name": "Information Technology",
+          "dept_type": "IT", "dept_desc": "Handles all tech infrastructure",
+          "head_name": "Bob Smith", "head_email": "bob@company.com",
+          "head_phone": "+1-555-0102", "location": "Austin",
+          "budget_code": "BUD-IT", "est_dt": "2019-06-15",
+          "contact_email": "it@company.com", "risk_level": "High",
+          "audit_freq": "Quarterly", "act_status": "Active",
+          "created_at": "2024-02-01T00:00:00Z", "updated_at": "2024-09-01T00:00:00Z"
+        },
+        {
+          "dept_id": "DEPT003", "org_id": "ORG001",
+          "dept_code": "FIN-001", "dept_name": "Finance",
+          "dept_type": "Finance", "dept_desc": "Manages budgets and accounting",
+          "head_name": "Carol Lee", "head_email": "carol@company.com",
+          "head_phone": "+1-555-0103", "location": "Chicago",
+          "budget_code": "BUD-FIN", "est_dt": "2020-03-20",
+          "contact_email": "finance@company.com", "risk_level": "Medium",
+          "audit_freq": "Semi-Annual", "act_status": "Inactive",
+          "created_at": "2023-12-01T00:00:00Z", "updated_at": "2024-07-01T00:00:00Z"
+        }
+      ]
+    }
+  ]
+}

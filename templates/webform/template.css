@@ -1,0 +1,1546 @@
+// Summary Cards using theme variables
+.app-widget-card {
+    background: var(--theme-appUIForegroundBg);
+    border: 1px solid var(--theme-appBorderColor);
+    border-radius: 0;
+    padding: 1.5rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+        transform: translateY(-0.125rem);
+    }
+
+    &__header {
+        margin-bottom: 1rem;
+    }
+
+    &__title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--theme-appText);
+        opacity: 0.7;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__value {
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--theme-appText);
+
+        &.text-blue-600 {
+            color: var(--theme-appColorPrimary);
+        }
+
+        &.text-green-600 {
+            color: var(--theme-appColorSuccess);
+        }
+
+        &.text-red-600 {
+            color: var(--theme-appColorDanger);
+        }
+
+        &.text-purple-600 {
+            color: #9333ea;
+        }
+    }
+
+    &__icon {
+        opacity: 0.5;
+    }
+}
+
+// Business Units container layout
+.business-units-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0; // Allow flex child to shrink
+
+    .app-content__inner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0; // Allow flex child to shrink
+        padding: 1rem !important; // Override default padding
+    }
+}
+
+.business-units-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; // Allow flex child to shrink
+    overflow: hidden;
+}
+
+.business-units-table-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; // Allow flex child to shrink
+    overflow: hidden;
+}
+
+/* Loading Skeleton States */
+.skeleton-container {
+    .skeleton-card {
+        background: var(--theme-appUIForegroundBg);
+        border: 1px solid var(--theme-appBorderColor);
+        border-radius: 0;
+        padding: 1.5rem;
+        margin-bottom: 0.75rem;
+
+        .skeleton-title,
+        .skeleton-value {
+            background: linear-gradient(90deg,
+                    var(--theme-appBorderColor) 25%,
+                    transparent 37%,
+                    var(--theme-appBorderColor) 63%);
+            background-size: 400% 100%;
+            animation: skeleton-shimmer 1.5s ease-in-out infinite;
+            border-radius: 4px;
+            height: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .skeleton-value {
+            height: 2rem;
+            margin-bottom: 0;
+        }
+    }
+
+    .skeleton-table {
+        background: var(--theme-appUIForegroundBg);
+        border: 1px solid var(--theme-appBorderColor);
+        border-radius: 0;
+        overflow: hidden;
+
+        .skeleton-table-header {
+            background: var(--theme-appUIBg);
+            border-bottom: 2px solid var(--theme-appBorderColor);
+
+            .skeleton-table-row {
+                display: grid;
+                grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 120px;
+                gap: 1rem;
+                padding: 0.75rem;
+                align-items: center;
+            }
+        }
+
+        .skeleton-table-body {
+            .skeleton-table-row {
+                display: grid;
+                grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 120px;
+                gap: 1rem;
+                padding: 0.75rem;
+                border-bottom: 1px solid var(--theme-appBorderColor);
+                align-items: center;
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        .skeleton-table-cell {
+            min-height: 20px;
+            background: linear-gradient(90deg,
+                    var(--theme-appBorderColor) 25%,
+                    transparent 37%,
+                    var(--theme-appBorderColor) 63%);
+            background-size: 400% 100%;
+            animation: skeleton-shimmer 1.5s ease-in-out infinite;
+            border-radius: 4px;
+
+            &:first-child {
+                width: 30px;
+            }
+
+            &:last-child {
+                width: 80px;
+            }
+        }
+    }
+}
+
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+/* Search and Filters */
+.app-form {
+    &__row {
+        gap: 1rem;
+    }
+
+    &__item {
+        margin-bottom: 0;
+    }
+}
+
+/* Table Wrapper */
+.business-units-table-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+    margin-top: 1rem; // Add space between filters and table
+}
+
+// No data state styling
+.no-data-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 400px;
+}
+
+.no-data-content {
+    text-align: center;
+    max-width: 400px;
+    padding: 2rem;
+
+    .no-data-icon {
+        color: var(--theme-appText);
+        opacity: 0.3;
+        margin-bottom: 1rem;
+    }
+
+    .no-data-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--theme-appText);
+        margin-bottom: 0.5rem;
+    }
+
+    .no-data-text {
+        font-size: 0.875rem;
+        color: var(--theme-appText);
+        opacity: 0.7;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+}
+
+// Horizontal and vertical scroll with sticky actions
+.table-scroll-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: 100%;
+    flex: 1;
+    min-height: 0; // Allow flex child to shrink
+
+    table {
+        min-width: 800px; // Minimum width to trigger horizontal scroll
+        position: relative;
+
+        // Make table headers sticky
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+
+            th {
+                background: var(--theme-appUIBg) !important;
+                border-bottom: 2px solid var(--theme-appBorderColor) !important;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+        }
+
+        // Make actions column sticky
+        th:last-child,
+        td:last-child {
+            position: sticky;
+            right: 0;
+            background: var(--theme-appUIBg);
+            z-index: 10;
+            box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+
+            &::before {
+                content: '';
+                position: absolute;
+                left: -1px;
+                top: 0;
+                bottom: 0;
+                width: 1px;
+                background: var(--theme-appBorderColor);
+            }
+        }
+
+        // Special styling for sticky header in actions column
+        thead th:last-child {
+            z-index: 30; // Higher than other headers since it's both sticky top and right
+            background: var(--theme-appUIBg) !important;
+        }
+
+        td:last-child {
+            background: var(--theme-appUIForegroundBg);
+
+            &:hover {
+                background: var(--theme-appUIBg);
+            }
+        }
+    }
+}
+
+/* No Data State */
+.no-data-container {
+    padding: 4rem 2rem;
+    text-align: center;
+
+    .no-data-content {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .no-data-icon {
+        color: #9ca3af;
+        margin-bottom: 1rem;
+    }
+
+    .no-data-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-data-text {
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+}
+
+/* Table Styles */
+.table-container {
+    overflow-x: auto;
+
+    .table-row {
+        &:hover {
+            background-color: #f9fafb;
+        }
+    }
+
+    .table-cell-content {
+        display: block;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        .cell-primary {
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .cell-truncated {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .actions-cell {
+        width: 120px;
+        min-width: 120px;
+
+        .action-buttons {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .table-action-btn {
+            padding: 0.25rem;
+            min-height: 32px;
+            width: 32px;
+
+            &.delete-btn {
+                color: #dc2626;
+
+                &:hover {
+                    background-color: #fef2f2;
+                }
+            }
+        }
+    }
+}
+
+// Table using theme variables
+.app-table-container {
+    background: var(--theme-appUIForegroundBg);
+    border: 1px solid var(--theme-appBorderColor);
+    border-radius: 0;
+    overflow: hidden;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0; // Allow flex child to shrink
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+            padding: 0.75rem !important;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--theme-appBorderColor);
+        }
+
+        th {
+            background: var(--theme-appUIBg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--theme-appTextColor);
+            white-space: nowrap;
+        }
+
+        td {
+            background: var(--theme-appUIForegroundBg);
+            color: var(--theme-appTextColor);
+            font-size: 0.875rem;
+        }
+
+        // Ensure consistent alignment for first column (checkbox)
+        th:first-child,
+        td:first-child {
+            width: 50px;
+            text-align: center;
+            padding: 0.75rem 0.5rem !important;
+        }
+
+        // Actions column alignment
+        th:last-child,
+        td:last-child {
+            text-align: center;
+            width: 120px;
+        }
+
+        tr:hover td {
+            background: var(--theme-appUIBg);
+        }
+    }
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+
+    &.status-active {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+    &.status-inactive {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+
+    &.status-pending {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+
+    &.status-suspended {
+        background-color: #f3e8ff;
+        color: #7c3aed;
+    }
+}
+
+/* Risk Assessment Badges */
+.risk-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+
+    &.risk-low {
+        background-color: #dcfce7;
+        color: #166534;
+    }
+
+    &.risk-medium {
+        background-color: #fef3c7;
+        color: #92400e;
+    }
+
+    &.risk-high {
+        background-color: #fed7aa;
+        color: #c2410c;
+    }
+
+    &.risk-critical {
+        background-color: #fee2e2;
+        color: #991b1b;
+    }
+}
+
+/* Pagination */
+.pagination-container {
+    padding: 1rem;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+}
+
+.pagination-section {
+    padding: 1rem;
+    background: var(--theme-appUIForegroundBg);
+    border-top: 1px solid var(--theme-appBorderColor);
+    margin-bottom: 1rem; // Reduced margin for better spacing
+    flex-shrink: 0; // Prevent pagination from shrinking
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &.column-modal {
+        max-width: 600px;
+    }
+
+    @media (min-width: 1024px) {
+        max-width: 1200px;
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+
+    .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin: 0;
+    }
+
+    .modal-close-btn {
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #6b7280;
+
+        &:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+    }
+}
+
+.modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+
+    &.modal-body-form {
+        padding: 0;
+    }
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+/* Form Styles */
+.business-unit-form {
+    padding: 1.5rem;
+
+    .form-section {
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+
+            &.full-width {
+                grid-template-columns: 1fr;
+            }
+
+            @media (max-width: 768px) {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            &.required {
+                ibm-label::after {
+                    content: ' *';
+                    color: #dc2626;
+                }
+            }
+        }
+    }
+}
+
+/* Certification Section */
+.cert-section {
+    .cert-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+
+        .cert-label {
+            font-weight: 500;
+            color: #374151;
+        }
+    }
+
+    .cert-list {
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        overflow: hidden;
+
+        .cert-item {
+            padding: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            .cert-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr auto;
+                gap: 1rem;
+                align-items: end;
+
+                @media (max-width: 768px) {
+                    grid-template-columns: 1fr;
+                    gap: 0.75rem;
+                }
+
+                .cert-name,
+                .cert-upload {
+                    .file-input {
+                        width: 100%;
+                        margin-top: 0.25rem;
+                    }
+
+                    .file-info {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        margin-top: 0.5rem;
+                        padding: 0.5rem;
+                        background: #f9fafb;
+                        border-radius: 4px;
+
+                        .file-name {
+                            flex: 1;
+                            font-size: 0.875rem;
+                            color: #374151;
+                        }
+                    }
+                }
+
+                .cert-actions {
+                    display: flex;
+                    justify-content: flex-end;
+
+                    @media (max-width: 768px) {
+                        justify-content: flex-start;
+                    }
+                }
+            }
+
+            .cert-date {
+                margin-top: 0.5rem;
+
+                .upload-date {
+                    color: #6b7280;
+                    font-size: 0.75rem;
+                }
+            }
+        }
+    }
+
+    .no-certs {
+        padding: 2rem;
+        text-align: center;
+        background: #f9fafb;
+        border: 2px dashed #d1d5db;
+        border-radius: 8px;
+
+        .no-certs-text {
+            color: #6b7280;
+            margin: 0;
+        }
+    }
+}
+
+/* Column Configuration Modal */
+.column-config {
+    .config-section-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 1rem;
+        margin-top: 1.5rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    .column-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 0.75rem;
+
+        .column-item {
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+
+            &.default {
+                background: #f9fafb;
+                border-color: #d1d5db;
+            }
+
+            &:hover:not(.default) {
+                background: #f9fafb;
+            }
+        }
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .business-units-container {
+        margin: 0;
+    }
+
+    .business-units-content {
+        margin: 0.5rem;
+        border-radius: 0;
+    }
+
+    .app-content__inner {
+        padding: 1rem !important;
+    }
+
+    .app-form {
+        margin-bottom: 1rem;
+        padding: 1rem;
+    }
+
+    .modal-container {
+        margin: 0.5rem;
+        max-height: calc(100vh - 1rem);
+    }
+
+    .modal-header,
+    .modal-body,
+    .modal-footer {
+        padding: 1rem;
+    }
+
+    .table-container {
+        font-size: 0.875rem;
+
+        .table-cell-content {
+            max-width: 120px;
+
+            .cell-truncated {
+                max-width: 100px;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .app-widget-card {
+        padding: 1rem;
+
+        &__value {
+            font-size: 1.5rem;
+        }
+    }
+
+    .action-buttons {
+        flex-direction: column;
+
+        .table-action-btn {
+            width: auto;
+            min-width: auto;
+            padding: 0.5rem;
+        }
+    }
+}
+
+/* Utility Classes */
+.text-blue-600 {
+    color: #2563eb;
+}
+
+.text-green-600 {
+    color: #16a34a;
+}
+
+.text-red-600 {
+    color: #dc2626;
+}
+
+.text-purple-600 {
+    color: #9333ea;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
+.mt-3 {
+    margin-top: 0.75rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+/* Header Tools */
+.columns-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .columns-icon {
+        margin-right: 0.25rem;
+    }
+}
+
+/* Custom Carbon UI Overrides */
+::ng-deep {
+    .bx--search-input {
+        background: white;
+    }
+
+    .bx--dropdown {
+        background: white;
+    }
+
+    .bx--text-input {
+        background: white;
+    }
+
+    .bx--text-area {
+        background: white;
+        resize: vertical;
+    }
+
+    .bx--date-picker__input {
+        background: white;
+    }
+
+    .bx--pagination {
+        background: transparent;
+    }
+
+    .bx--table {
+        background: white;
+    }
+
+    .bx--table-header-label {
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .bx--checkbox-label {
+        color: #374151;
+    }
+
+    .bx--modal-container {
+        max-height: none !important;
+    }
+}
+
+// Table action buttons should use table text color
+.bx--table-container {
+    .bx--btn--ghost {
+        svg {
+            fill: var(--theme-appTextColor) !important;
+            color: var(--theme-appTextColor) !important;
+        }
+
+        &:hover {
+            svg {
+                fill: var(--theme-appColorPrimary) !important;
+                color: var(--theme-appColorPrimary) !important;
+            }
+        }
+    }
+}
+
+// Table data cell action buttons
+td[ibmTableDataCell] {
+    button {
+        svg {
+            fill: var(--theme-appTextColor) !important;
+            color: var(--theme-appTextColor) !important;
+        }
+
+        &:hover {
+            svg {
+                fill: var(--theme-appColorPrimary) !important;
+                color: var(--theme-appColorPrimary) !important;
+            }
+        }
+    }
+}
+
+// Additional specific styling for business units table action icons
+.bx--table-container tbody tr td:last-child {
+    button[ibmButton="ghost"] {
+        svg {
+            fill: var(--theme-appTextColor) !important;
+            color: var(--theme-appTextColor) !important;
+            opacity: 0.8;
+            transition: all 0.2s ease;
+        }
+
+        &:hover {
+            svg {
+                fill: var(--theme-appColorPrimary) !important;
+                color: var(--theme-appColorPrimary) !important;
+                opacity: 1;
+            }
+        }
+
+        &:focus {
+            svg {
+                fill: var(--theme-appColorPrimary) !important;
+                color: var(--theme-appColorPrimary) !important;
+            }
+        }
+    }
+}
+
+// Specific override for ghost buttons in table actions to use table text color
+.bx--btn--ghost {
+    &:not(.cert-action-btn):not(.modal-action-btn) {
+
+        svg,
+        .bx--btn__icon {
+            fill: var(--theme-appTextColor) !important;
+            color: var(--theme-appTextColor) !important;
+        }
+
+        &:hover {
+
+            svg,
+            .bx--btn__icon {
+                fill: var(--theme-appColorPrimary) !important;
+                color: var(--theme-appColorPrimary) !important;
+            }
+        }
+    }
+}
+
+// Flex utilities for action buttons
+.flex {
+    display: flex;
+}
+
+.space-x-2>*+* {
+    margin-left: 0.5rem;
+}
+
+// Custom Modal Styling
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-dialog {
+    background: var(--theme-appUIForegroundBg);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--theme-appBorderColor);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: var(--theme-appUIBg);
+}
+
+.modal-title {
+    flex: 1;
+}
+
+.modal-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--theme-appTextColorSecondary);
+    margin: 0 0 4px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--theme-appTextColor);
+    margin: 0;
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    color: var(--theme-appTextColorSecondary);
+
+    &:hover {
+        background: var(--theme-appUIBg);
+        color: var(--theme-appTextColor);
+    }
+
+    svg {
+        fill: currentColor;
+    }
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--theme-appBorderColor);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    background: var(--theme-appUIBg);
+}
+
+// Form Modal Styles
+.modal-lg {
+    max-width: 900px;
+    width: 90%;
+    max-height: 90vh;
+
+    @media (max-width: 768px) {
+        width: 95%;
+        max-height: 95vh;
+    }
+}
+
+.modal-body-form {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.business-unit-form {
+    .form-section {
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .section-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--theme-appText);
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--theme-appBorderColor);
+    }
+
+    .form-row {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+
+        &.full-width {
+            flex-direction: column;
+
+            .form-group {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+
+    .form-group {
+        flex: 1;
+
+        &.required {
+            position: relative;
+
+            ::ng-deep .bx--label::after {
+                content: ' *';
+                color: var(--theme-appColorDanger);
+            }
+        }
+    }
+
+    // Style IBM Carbon components within the form
+    ::ng-deep {
+
+        .bx--text-input,
+        .bx--text-area,
+        .bx--dropdown,
+        .bx--date-picker-input {
+            background-color: var(--theme-appUIBg);
+            color: var(--theme-appText);
+            border-color: var(--theme-appBorderColor);
+
+            &:focus,
+            &:active {
+                border-color: var(--theme-appPrimaryColor);
+                outline: 2px solid var(--theme-appPrimaryColor);
+                outline-offset: -2px;
+            }
+        }
+
+        .bx--label {
+            color: var(--theme-appText);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .bx--text-input__field-wrapper {
+            margin-bottom: 0;
+        }
+
+        .bx--dropdown__wrapper--inline {
+            .bx--dropdown {
+                border-color: var(--theme-appBorderColor);
+
+                &:hover {
+                    border-color: var(--theme-appPrimaryColor);
+                }
+            }
+        }
+
+        .bx--text-area {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        // Date picker styles
+        .bx--date-picker-container {
+            .bx--date-picker__input {
+                background-color: var(--theme-appUIBg);
+                border-color: var(--theme-appBorderColor);
+            }
+        }
+
+        // Dropdown styles
+        .bx--dropdown-text {
+            color: var(--theme-appText);
+        }
+
+        .bx--dropdown-item {
+            &:hover {
+                background-color: var(--theme-appUIBgHover);
+            }
+
+            &:focus {
+                background-color: var(--theme-appPrimaryColor);
+                color: white;
+            }
+        }
+    }
+}
+
+// Column Preferences Modal Styling
+.column-preferences-content {
+    .column-section {
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--theme-appTextColor);
+        margin-bottom: 0.5rem;
+    }
+
+    .section-description {
+        font-size: 14px;
+        color: var(--theme-appTextColorSecondary);
+        margin-bottom: 1rem;
+    }
+
+    .column-list {
+        border: 1px solid var(--theme-appBorderColor);
+        border-radius: 4px;
+        background: var(--theme-appUIForegroundBg);
+    }
+
+    .column-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--theme-appBorderColor);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.default-column {
+            background: var(--theme-appUIBg);
+        }
+    }
+
+    .column-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .custom-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--theme-appBorderColor);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: var(--theme-appUIBg);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            position: relative;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: transparent;
+            /* Hide checkmark by default */
+
+            &:hover {
+                border-color: var(--theme-appPrimaryColor);
+                background: var(--theme-appUIBgHover);
+            }
+
+            &.checked {
+                background: #0f62fe;
+                /* Use a solid blue color */
+                border-color: #0f62fe;
+                color: #ffffff !important;
+                /* Force white color for checkmark */
+
+                &::before {
+                    content: '✓';
+                    color: white;
+                    font-size: 12px;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+
+        .column-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--theme-appTextColor);
+            cursor: pointer;
+            flex: 1;
+
+            &:hover {
+                color: var(--theme-appPrimaryColor);
+            }
+        }
+
+        .debug-info {
+            font-size: 10px;
+            color: var(--theme-appTextColorSecondary);
+            margin-left: 8px;
+        }
+
+        .lock-icon {
+            fill: var(--theme-appTextColorSecondary);
+        }
+    }
+
+    .column-status {
+        font-size: 12px;
+        color: var(--theme-appTextColorSecondary);
+        font-style: italic;
+    }
+
+    .column-description {
+        font-size: 12px;
+        color: var(--theme-appTextColorSecondary);
+        max-width: 200px;
+        text-align: right;
+    }
+}
+
+// Button styling for columns button
+.columns-btn {
+    .columns-icon {
+        fill: currentColor;
+        margin-right: 0.5rem;
+    }
+}
+
+// Column Preferences Modal Styling
+.column-preferences-content {
+    .column-section {
+        margin-bottom: 2rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--theme-appTextColor);
+        margin-bottom: 0.5rem;
+    }
+
+    .section-description {
+        font-size: 14px;
+        color: var(--theme-appTextColorSecondary);
+        margin-bottom: 1rem;
+    }
+
+    .column-list {
+        border: 1px solid var(--theme-appBorderColor);
+        border-radius: 4px;
+        background: var(--theme-appUIForegroundBg);
+    }
+
+    .column-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--theme-appBorderColor);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.default-column {
+            background: var(--theme-appUIBg);
+        }
+    }
+
+    .column-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .custom-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--theme-appBorderColor);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: var(--theme-appUIBg);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            position: relative;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: transparent;
+            /* Hide checkmark by default */
+
+            &:hover {
+                border-color: var(--theme-appPrimaryColor);
+                background: var(--theme-appUIBgHover);
+            }
+
+            &.checked {
+                background: #0f62fe;
+                /* Use a solid blue color */
+                border-color: #0f62fe;
+                color: #ffffff !important;
+                /* Force white color for checkmark */
+
+                &::before {
+                    content: '✓';
+                    color: white;
+                    font-size: 12px;
+                    font-weight: bold;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+        }
+
+        .column-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--theme-appTextColor);
+            cursor: pointer;
+            flex: 1;
+
+            &:hover {
+                color: var(--theme-appPrimaryColor);
+            }
+        }
+
+        .debug-info {
+            font-size: 10px;
+            color: var(--theme-appTextColorSecondary);
+            margin-left: 8px;
+        }
+
+        .lock-icon {
+            fill: var(--theme-appTextColorSecondary);
+        }
+    }
+
+    .column-status {
+        font-size: 12px;
+        color: var(--theme-appTextColorSecondary);
+        font-style: italic;
+    }
+
+    .column-description {
+        font-size: 12px;
+        color: var(--theme-appTextColorSecondary);
+        max-width: 200px;
+        text-align: right;
+    }
+}
+
+// Button styling for columns button
+.columns-btn {
+    .columns-icon {
+        fill: currentColor;
+        margin-right: 0.5rem;
+    }
+}
